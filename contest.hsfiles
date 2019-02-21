@@ -17,8 +17,8 @@ extra-source-files:  README.md
 executable {{name}}
   hs-source-dirs:      src
   default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5
-  main-is:             a.hs
+  build-depends:       base >= 4.7 && < 5, bytestring, mtl, containers
+  main-is:             Main.hs
 
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
@@ -29,7 +29,7 @@ main = defaultMain
 
 Template for Programming Contest in Haskell 
 
-{-# START_FILE src/a.hs #-}
+{-# START_FILE src/Main.hs #-}
 import Control.Arrow
 import Control.Monad
 import Data.List
@@ -42,61 +42,7 @@ solve :: Int
 solve = undefined
 
 readLine :: IO [Int]
-readLine = unfoldr (\s -> second (maybe B.empty snd . B.uncons) <$> B.readInt s) <$> B.getLine
-
-readContents :: Int -> IO [[Int]]
-readContents = flip replicateM readLine
-
-{-# START_FILE src/b.hs #-}
-import Control.Arrow
-import Control.Monad
-import Data.List
-import qualified Data.ByteString.Char8 as B
-
-main :: IO ()
-main = undefined 
-
-solve :: Int
-solve = undefined
-
-readLine :: IO [Int]
-readLine = unfoldr (\s -> second (maybe B.empty snd . B.uncons) <$> B.readInt s) <$> B.getLine
-
-readContents :: Int -> IO [[Int]]
-readContents = flip replicateM readLine
-
-{-# START_FILE src/c.hs #-}
-import Control.Arrow
-import Control.Monad
-import Data.List
-import qualified Data.ByteString.Char8 as B
-
-main :: IO ()
-main = undefined 
-
-solve :: Int
-solve = undefined
-
-readLine :: IO [Int]
-readLine = unfoldr (\s -> second (maybe B.empty snd . B.uncons) <$> B.readInt s) <$> B.getLine
-
-readContents :: Int -> IO [[Int]]
-readContents = flip replicateM readLine
-
-{-# START_FILE src/d.hs #-}
-import Control.Arrow
-import Control.Monad
-import Data.List
-import qualified Data.ByteString.Char8 as B
-
-main :: IO ()
-main = undefined 
-
-solve :: Int
-solve = undefined
-
-readLine :: IO [Int]
-readLine = unfoldr (\s -> second (maybe B.empty snd . B.uncons) <$> B.readInt s) <$> B.getLine
+readLine = unfoldr (fmap (second (maybe B.empty snd . B.uncons)) . B.readInt) <$> B.getLine
 
 readContents :: Int -> IO [[Int]]
 readContents = flip replicateM readLine
